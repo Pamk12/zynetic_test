@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zynetic API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .endpoint {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 0 4px 4px 0;
+        }
+        .method {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .url {
+            color: #2980b9;
+            font-family: monospace;
+        }
+        .note {
+            background-color: #fffbea;
+            border-left: 4px solid #f1c40f;
+            padding: 10px 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zynetic API Documentation</h1>
+    
+    <p>Welcome to the Zynetic API. This server is running a NestJS application with the following endpoints:</p>
+    
+    <h2>Authentication</h2>
+    <div class="endpoint">
+        <p><span class="method">POST</span> <span class="url">/api/auth/signup</span> - Register a new user</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">POST</span> <span class="url">/api/auth/login</span> - Login with email and password</p>
+    </div>
+    
+    <h2>Books</h2>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <span class="url">/api/books</span> - Get all books</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">POST</span> <span class="url">/api/books</span> - Create a new book</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <span class="url">/api/books/my-books</span> - Get books created by the authenticated user</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <span class="url">/api/books/:id</span> - Get a specific book by ID</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">PUT</span> <span class="url">/api/books/:id</span> - Update a specific book</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">DELETE</span> <span class="url">/api/books/:id</span> - Delete a specific book</p>
+    </div>
+    
+    <h2>Filtering & Search</h2>
+    <p>You can filter books by author, category, and rating using query parameters:</p>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <span class="url">/api/books?author=AuthorName</span> - Filter books by author</p>
+        <p><span class="method">GET</span> <span class="url">/api/books?category=CategoryName</span> - Filter books by category</p>
+        <p><span class="method">GET</span> <span class="url">/api/books?rating=5</span> - Filter books by rating</p>
+    </div>
+    <p>You can also search books by title with partial matches:</p>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <span class="url">/api/books?title=PartialTitle</span> - Search books by title</p>
+    </div>
+    <p>Combine these parameters for more refined searches, e.g., <code>/api/books?author=AuthorName&category=CategoryName&rating=5&title=PartialTitle</code>.</p>
+    
+    <div class="note">
+        <p><strong>Note:</strong> All API endpoints are prefixed with <code>/api</code>. Make sure to include this prefix in your requests.</p>
+        <p>For example, to access the root endpoint, use <a href="/api">/api</a> instead of just <code>/</code>.</p>
+    </div>
+</body>
+</html>

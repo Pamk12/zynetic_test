@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zynetic API - Dev Notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #fefefe;
+      color: #333;
+      line-height: 1.6;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    h1, h2 {
+      color: #222;
+    }
+
+    .endpoint {
+      background: #eee;
+      padding: 10px;
+      margin: 10px 0;
+      border-left: 4px solid #0099cc;
+    }
+
+    .code-block {
+      font-family: monospace;
+      background: #f4f4f4;
+      padding: 10px;
+      border: 1px dashed #ccc;
+      margin: 10px 0;
+      white-space: pre-wrap;
+    }
+
+    .note {
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 4px solid #ffcc00;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Zynetic API</h1>
+  <p>Welcome to the Zynetic API... or what exists of it so far 😅.</p>
+
+  <div class="note">
+    Heads up: All endpoints start with <code>/api</code>. The server runs on port 3000 (unless someone changes it in `.env`).
+  </div>
+
+  <h2>Auth</h2>
+
+  <h3>Signup</h3>
+  <div class="endpoint">POST /api/auth/signup</div>
+  <p>Register a new user. No email validation yet, so don’t spam it 🙃</p>
+  <div class="code-block">
+{
+  "email": "me@somewhere.com",
+  "password": "superSecret123"
+}
+  </div>
+
+  <h3>Login</h3>
+  <div class="endpoint">POST /api/auth/login</div>
+  <p>Returns a token if your credentials are good. If not... you get nothing.</p>
+  <div class="code-block">
+{
+  "email": "me@somewhere.com",
+  "password": "superSecret123"
+}
+  </div>
+
+  <p>Response:</p>
+  <div class="code-block">
+{
+  "access_token": "token_goes_here"
+}
+  </div>
+
+  <p>Stick the token in your header like:</p>
+  <div class="code-block">
+Authorization: Bearer token_goes_here
+  </div>
+
+  <h2>Books</h2>
+  <p>These endpoints are locked — you’ll need that JWT token to access them.</p>
+
+  <h3>Get all books</h3>
+  <div class="endpoint">GET /api/books</div>
+  <p>Add optional filters like:</p>
+  <ul>
+    <li><code>?author=King</code></li>
+    <li><code>?rating=5</code></li>
+    <li><code>?category=Fantasy</code></li>
+  </ul>
+
+  <h3>Create book</h3>
+  <div class="endpoint">POST /api/books</div>
+  <p>Request body example:</p>
+  <div class="code-block">
+{
+  "title": "The Thing I Wrote",
+  "description": "idk just read it",
+  "rating": 4
+}
+  </div>
+
+  <h3>My Books</h3>
+  <div class="endpoint">GET /api/books/my-books</div>
+  <p>Returns books you created (not everyone else's junk).</p>
+
+  <h3>Get one</h3>
+  <div class="endpoint">GET /api/books/:id</div>
+  <p>Pretty straightforward. Replace <code>:id</code> with the actual ID.</p>
+
+  <h3>Update book</h3>
+  <div class="endpoint">PUT /api/books/:id</div>
+  <p>You can send just what you want to update, e.g.:</p>
+  <div class="code-block">
+{
+  "rating": 5
+}
+  </div>
+
+  <h3>Delete book</h3>
+  <div class="endpoint">DELETE /api/books/:id</div>
+  <p>No confirmation. Once it’s gone, it’s gone. You’ve been warned 💀</p>
+
+  <h2>Some cURL for the terminal junkies</h2>
+
+  <h3>Signup</h3>
+  <div class="code-block">
+curl -X POST http://localhost:3000/api/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"email":"me@example.com", "password":"123456"}'
+  </div>
+
+  <h3>Login</h3>
+  <div class="code-block">
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"me@example.com", "password":"123456"}'
+  </div>
+
+  <h3>Add book</h3>
+  <div class="code-block">
+curl -X POST http://localhost:3000/api/books \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Demo Book","rating":5}'
+  </div>
+
+  <h2>TODO / Probably broken</h2>
+  <ul>
+    <li>[ ] Add Swagger or something fancier</li>
+    <li>[ ] Show error messages here (401, 403, etc.)</li>
+    <li>[ ] Pagination, maybe? If we get more than 10 books?</li>
+  </ul>
+
+  <p style="margin-top: 3rem; font-size: 0.9em; color: #888;">
+    Last updated by @dev_bob on a Monday night (I think).
+  </p>
+
+</body>
+</html>
